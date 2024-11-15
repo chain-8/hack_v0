@@ -1,62 +1,51 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[2]:
 
+
+#import libraries and declare variables
 
 import requests
 import os
 import pandas as pd
+from dotenv import load_dotenv
+from dash import Dash, html, dash_table, dcc
+
+load_dotenv()
 FMP_API_KEY = os.getenv("FMP_API_KEY")
-
-
-# In[2]:
-
-
-#Check
-#print(FMP_API_KEY)
+#FMP_API_KEY = "REMOVED"
 
 
 # In[3]:
 
 
-# Stock List --> Available Indexes
-url = f"https://financialmodelingprep.com/api/v3/symbol/available-indexes?apikey={FMP_API_KEY}"
-response=requests.get(url)
+print(FMP_API_KEY)
 
 
 # In[4]:
 
 
-#Check 
+#fetch data from api and store it in df
 
-#print(url)
-#print(response)
-#print(response.json())
+url = f"https://financialmodelingprep.com/api/v3/symbol/available-indexes?apikey={FMP_API_KEY}"
+response=requests.get(url)
+
+data = response.json()
+print(data)
 
 
 # In[5]:
 
 
-df = pd.DataFrame(response.json())
+df = pd.DataFrame(data)
+print(df)
 
 
 # In[6]:
 
 
-#Check
-
-#display(df)
-
-
-# In[7]:
-
-
-from dash import Dash, html, dash_table, dcc
-
-
-# In[8]:
-
+#applayout
 
 app = Dash()
 app.layout = html.Div([
@@ -96,15 +85,10 @@ style={
 })
 
 
-# In[9]:
+# In[7]:
 
+
+#run application
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
-# In[ ]:
-
-
-
-

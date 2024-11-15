@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[9]:
+# In[2]:
 
 
 #import libraries and declare variables
@@ -16,7 +16,13 @@ load_dotenv()
 FMP_API_KEY = os.getenv("FMP_API_KEY")
 
 
-# In[10]:
+# In[3]:
+
+
+#print(FMP_API_KEY)
+
+
+# In[4]:
 
 
 #fetch data from api and store it in df
@@ -24,10 +30,18 @@ FMP_API_KEY = os.getenv("FMP_API_KEY")
 url = f"https://financialmodelingprep.com/api/v3/symbol/available-indexes?apikey={FMP_API_KEY}"
 response=requests.get(url)
 
-df = pd.DataFrame(response.json())
+data = response.json()
+#print(data)
 
 
-# In[11]:
+# In[5]:
+
+
+df = pd.DataFrame(data)
+#print(df)
+
+
+# In[6]:
 
 
 #applayout
@@ -70,23 +84,10 @@ style={
 })
 
 
-# In[12]:
+# In[7]:
 
 
 #run application
 
 if __name__ == '__main__':
-    app.run(debug=True)
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
+    app.run(host='0.0.0.0', port=8050, debug=True)
